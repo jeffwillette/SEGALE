@@ -20,10 +20,11 @@ setup(
     version='0.1.0',
     py_modules=['segale_align', 'segale_eval'],
     packages=find_packages(),
+    package_data={'vecalign': ['*.pyx']},   # add this line
     install_requires=[
         'spacy==3.8.4',
         'torch==2.5.0',
-        'numpy==1.23.5',
+        'numpy>=1.23.5',
         'pandas==2.2.3',
         'tqdm==4.67.1',
         'transformers==4.51.3',
