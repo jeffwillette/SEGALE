@@ -23,6 +23,7 @@ import numpy as np
 import tempfile
 import subprocess
 import datetime
+import sys
 
 from tqdm import tqdm
 from typing import Optional, List, Tuple
@@ -35,6 +36,7 @@ import torch.nn.functional as F
 # Global Variables
 # -----------------------------------------------------------------------------
 LASER_DIR = "/opt/LASER"
+_VECALIGN = os.path.join(os.path.dirname(sys.executable), "vecalign")
 
 
 # -----------------------------------------------------------------------------
@@ -366,7 +368,7 @@ def run_vecalign_explore(
     while del_percentile_frac > 0.01:
         result = subprocess.run(
             [
-                "vecalign",
+                _VECALIGN,
                 "--alignment_max_size",
                 str(max_size),
                 "--del_percentile_frac",
