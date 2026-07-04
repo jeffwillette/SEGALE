@@ -77,7 +77,7 @@ def segment_sentences_by_ersatz(text: str) -> list:
         input_filename = temp_in.name
     output_filename = input_filename + ".segmented"
     subprocess.run(
-        ["ersatz", "--input", input_filename, "--output", output_filename], check=True
+        [sys.executable, "-m", "ersatz.split", "--input", input_filename, "--output", output_filename], check=True
     )
     with open(output_filename, "r", encoding="utf-8") as f:
         segmented_text = f.read()
