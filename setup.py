@@ -13,7 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Extension
+from Cython.Build import cythonize
+import numpy
 
 setup(
     name='segale',
@@ -21,6 +23,11 @@ setup(
     py_modules=['segale_align', 'segale_eval'],
     packages=find_packages(),
     package_data={'vecalign': ['*.pyx']},   # add this line
+    ext_modules=cythonize(
+        [Extension('vecalign.dp_core', ['vecalign/dp_core.pyx'],
+            include_dirs=[numpy.get_include()])],
+        language_level=3,
+    ),
     install_requires=[
         'spacy==3.8.4',
         'torch==2.12.0',
