@@ -369,6 +369,7 @@ def run_vecalign_explore(
             [
                 sys.executable,
                 "-m",
+                "-P", # safe-path: avoid finding any local copy
                 "vecalign.vecalign",
                 "--alignment_max_size",
                 str(max_size),

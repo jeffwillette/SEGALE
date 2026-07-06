@@ -14,20 +14,12 @@
 # limitations under the License.
 
 from setuptools import setup, find_packages, Extension
-from Cython.Build import cythonize
-import numpy
 
 setup(
     name='segale',
     version='0.1.0',
     py_modules=['segale_align', 'segale_eval'],
     packages=find_packages(),
-    package_data={'vecalign': ['*.pyx']},   # add this line
-    ext_modules=cythonize(
-        [Extension('vecalign.dp_core', ['vecalign/dp_core.pyx'],
-            include_dirs=[numpy.get_include()])],
-        language_level=3,
-    ),
     install_requires=[
         'spacy==3.8.4',
         'torch==2.12.0',
@@ -37,13 +29,12 @@ setup(
         'transformers==4.51.3',
         'unbabel-comet==2.2.7',
         'hydra-core==1.3.2',
-        'Cython==3.0.11',
+        'vecalign @ git+https://github.com/thompsonb/vecalign@v2.0.0',
     ],
     entry_points={
         'console_scripts': [
             'segale-align = segale_align:main',
             'segale-eval = segale_eval:main',
-            'vecalign = vecalign.vecalign:_main',
         ],
     },
 )
