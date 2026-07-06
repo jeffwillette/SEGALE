@@ -368,6 +368,7 @@ def run_vecalign_explore(
         result = subprocess.run(
             [
                 sys.executable,
+                "-P",  # safe-path: avoid finding any local copy
                 "-m",
                 "vecalign.vecalign",
                 "--alignment_max_size",
@@ -386,7 +387,9 @@ def run_vecalign_explore(
                 tgt_embed_file_path,
             ],
             stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
+            check=True,
         )
 
         output_lines = result.stdout.strip().split("\n")

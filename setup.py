@@ -14,20 +14,14 @@
 # limitations under the License.
 
 from setuptools import setup, find_packages, Extension
-from Cython.Build import cythonize
-import numpy
 
 setup(
     name='segale',
     version='0.1.0',
     py_modules=['segale_align', 'segale_eval'],
     packages=find_packages(),
-    package_data={'vecalign': ['*.pyx']},   # add this line
-    ext_modules=cythonize(
-        [Extension('vecalign.dp_core', ['vecalign/dp_core.pyx'],
-            include_dirs=[numpy.get_include()])],
-        language_level=3,
-    ),
+    # spacy is currently pinned to v3.8.4, which only has wheels for python 3.10, 3.11, 3.12
+    python_requires='>=3.10,<3.13',
     install_requires=[
         'spacy==3.8.4',
         'torch==2.12.0',
@@ -36,14 +30,13 @@ setup(
         'tqdm==4.67.1',
         'transformers==4.51.3',
         'unbabel-comet==2.2.7',
-        'hydra-core==1.3.2',
-        'Cython==3.0.11',
+        'vecalign @ git+https://github.com/thompsonb/vecalign@v2.0.0',
+        'laser_encoders==0.0.2',
     ],
     entry_points={
         'console_scripts': [
             'segale-align = segale_align:main',
             'segale-eval = segale_eval:main',
-            'vecalign = vecalign.vecalign:_main',
         ],
     },
 )

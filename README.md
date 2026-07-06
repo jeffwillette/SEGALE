@@ -48,6 +48,14 @@ Installation itself is very easy:
 git clone --recurse-submodules https://github.com/nvlabs/SEGALE
 cd SEGALE
 pip install -e .
+
+# THIS FORK
+git clone git@github.com:jeffwillette/SEGALE.git  #forked from github.com/nvlabs/SEGALE
+cd SEGALE
+uv venv
+source .venv/bin/activate
+uv pip install -e .
+
 ```
 
 This will add two new commands in your workspace: `segale-align` and `segale-eval`.
@@ -154,24 +162,5 @@ After execution, you will obtain the aligned files `spacy_ref_A.jsonl` or `ersat
 ## Changes in Fork
 
 - update numpy to run with python 3.12
-- remove vecalign submodule and just merge it in the fork
+- replace vecalign submodule with https://github.com/thompsonb/vecalign@v2.0.0
 
-```
-  # 1. Initialize the submodule to get the vecalign files
-  git submodule update --init
-
-  # 2. Remove the submodule mechanism
-  git submodule deinit -f vecalign
-  git rm vecalign                  # removes the submodule entry and empties the dir
-  rm -rf .git/modules/vecalign
-
-  # 3. Copy the vecalign source in as plain tracked files
-  git clone https://github.com/shuoyangd/vecalign /tmp/vecalign-vendor
-  git -C /tmp/vecalign-vendor checkout 4f8b714598353a468596e704180a47bb5d3e2abe
-  cp -r /tmp/vecalign-vendor/. vecalign/   # copy contents (not the .git dir)
-  rm -rf vecalign/.git
-
-  # 4. Stage and commit
-  git add vecalign/
-  git commit -m "vendor vecalign submodule so pip install includes dp_core.pyx"
-```
