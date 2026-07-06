@@ -48,6 +48,14 @@ Installation itself is very easy:
 git clone --recurse-submodules https://github.com/nvlabs/SEGALE
 cd SEGALE
 pip install -e .
+
+# THIS FORK
+git clone git@github.com:jeffwillette/SEGALE.git  #forked from github.com/nvlabs/SEGALE
+cd SEGALE
+uv venv
+source .venv/bin/activate
+uv pip install -e .
+
 ```
 
 This will add two new commands in your workspace: `segale-align` and `segale-eval`.
